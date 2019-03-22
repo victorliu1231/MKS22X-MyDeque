@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.util.Arrays;
 
 public class MyDeque<E>{
   private E[] data;
@@ -35,7 +36,7 @@ public class MyDeque<E>{
       while (incrementStart != end+1){
         //this allows the list to loop back on itself
         ans+= data[incrementStart] + " ";
-        if (incrementStart == data.length){
+        if (incrementStart == data.length-1){
           incrementStart = 0;
         } else {
           incrementStart++;
@@ -52,15 +53,12 @@ public class MyDeque<E>{
       throw new NullPointerException();
     }
     if (size != 0){
-      //if you reached the front end by doing start--'ing
-      if (start == 0){
-        //if there's empty space at the end...
-        if (data[end] == null){
-          start = data.length-1;
-        } else {
-          resize();
-          start = data.length-1;
-        }
+      if (size == data.length){
+        resize();
+        start = data.length-1;
+        end = size-1;
+      } else if (start == 0){
+        start = data.length-1;
       } else {
         start--;
       }
@@ -73,14 +71,12 @@ public class MyDeque<E>{
     if (element == null){
       throw new NullPointerException();
     }
-    if (end == data.length - 1){
-      //if there's empty space in the beginning
-      if (data[0] == null){
-        end = 0;
-      } else {
-        resize();
-        end++;
-      }
+    if (size == data.length){
+      resize();
+      start = 0;
+      end = size;
+    } else if (end == data.length - 1){
+      end = 0;
     } else {
       if (size != 0){
         end++; //if we're just adding for the first time, then end should not increment away from start
@@ -95,12 +91,17 @@ public class MyDeque<E>{
       throw new NoSuchElementException();
     }
     E storer = data[start];
+    data[start] = null;
     if (start != data.length - 1){
       start++;
     } else { //if you need to loop back to the beginning
       start = 0;
     }
     size--;
+    if (size == 0){
+      start = 0;
+      end = 0;
+    }
     return storer;
   }
 
@@ -109,12 +110,17 @@ public class MyDeque<E>{
       throw new NoSuchElementException();
     }
     E storer = data[end];
+    data[end] = null;
     if (end != 0){
       end--;
     } else { //if you need to loop back to the end
-      end = data.length;
+      end = data.length-1;
     }
     size--;
+    if (size == 0){
+      start = 0;
+      end = 0;
+    }
     return storer;
   }
 
@@ -134,8 +140,14 @@ public class MyDeque<E>{
 
   private void resize(){
     E[] newAry = (E[])new Object[data.length * 2 + 1];
+    int counter = start;
     for (int n = 0; n < data.length; n++){
-        newAry[n] = data[n];
+        newAry[n] = data[counter];
+        if (counter == data.length-1){
+          counter = 0;
+        } else {
+          counter++;
+        }
     }
     data = newAry;
   }
@@ -150,9 +162,3 @@ public class MyDeque<E>{
     return ans;
   }
 }
-
-/*
-Add: (push / en-queue)
-Get: return but NOT remove the element. (peek)
-Remove: return AND remove the element. (pop / de-queue)
-*/

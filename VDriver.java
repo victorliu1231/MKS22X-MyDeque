@@ -6,15 +6,45 @@ public class VDriver{
     System.out.print(d1+" "); System.out.println(d1.size());//{}, 0
     d1.addLast(1); d1.addLast(2); d1.addLast(3); //{1 2 3 }, 3
     System.out.print(d1+" "); System.out.println(d1.size());
-    d1.removeFirst(); //{2 3 }, 2
+    System.out.println(d1.removeFirst()); //{2 3 }, 2
     System.out.print(d1+" "); System.out.println(d1.size());
-    d1.removeLast(); //{2 }, 1
+    System.out.println(d1.removeLast()); //{2 }, 1
     System.out.print(d1+" "); System.out.println(d1.size());
-    d1.removeFirst(); //{}, 0
+    System.out.println(d1.removeFirst()); //{}, 0
     System.out.print(d1+" "); System.out.println(d1.size());
+    for (int i = 0; i < 29; i++){
+      d1.addFirst(i);
+    }
+    d1.addLast(-1);
+    System.out.print(d1+" "); System.out.println(d1.size());
+    for (int i = 0; i < 5; i++){
+      System.out.println(d1.removeLast());
+    }
+    System.out.print(d1+" "); System.out.println(d1.size());
+    for (int i = 3; i > -29; i--){
+      d1.addLast(i);
+    }
+    System.out.print(d1+" "); System.out.println(d1.size());
+    for (int i = 0; i < 57; i++){
+      System.out.println(d1.removeFirst());
+    }
+    System.out.print(d1+" "); System.out.println(d1.size());
+
+    MyDeque<Integer> d2 = new MyDeque<>(1);
+    for (int i = 0; i < 10; i++){
+      if (i == 6 || i == 5){
+        d2.removeLast();
+      }
+      d2.addFirst(i);
+      System.out.println(d2);
+    }
+    System.out.println(d2.getFirst());
+    System.out.println(d2.getLast());
+    
+    /*
     int exceptions = 0;
     try {
-      d1.removeFirst();
+      System.out.println(d1.removeFirst());
     } catch (NoSuchElementException e){
       exceptions++;
     }
@@ -52,11 +82,8 @@ public class VDriver{
     if (exceptions == 6){
       System.out.println("SUCCESS");
     }
+    */
   }
   //tested all exceptions
-
-  //need to test resizing, getFirst, getLast, removeLast (for looping back),
-  //removeFirst (for looping back), addFirst (for looping back and resizing),
-  //addLast (for looping back and resizing), toString for when the list is looped
-  //size when list is looped, and instantiating MyDeque with initialcapicity constructor
+  //getFirst, getLast,
 }
