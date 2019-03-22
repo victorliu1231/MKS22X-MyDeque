@@ -6,8 +6,8 @@ public class MyDeque<E>{
   public MyDeque(){
     data = (E[])new Object[10];
     size = 0;
-    start = 0;
-    end = 0;
+    start = -1;
+    end = -1;
   }
 
   public MyDeque(int initialCapacity){
@@ -19,15 +19,19 @@ public class MyDeque<E>{
   }
 
   public String toString(){
+    if (start == -1 || end == -1){
+      return "{}";
+    }
     String ans = "{";
     int incrementStart = start;
-    if (start < end){
+    if (start <= end){
       while (incrementStart <= end){
         ans+= data[incrementStart] + " ";
         incrementStart++;
       }
     } else {
       while (incrementStart != end+1){
+        //System.out.println("incrementStart: "+incrementStart+", end: "+end);
         ans+= data[incrementStart] + " ";
         if (incrementStart == data.length){
           incrementStart = 0;
@@ -43,23 +47,38 @@ public class MyDeque<E>{
 
   public void addFirst(E element){
     size++;
-    if (start == 0){
-      data[start] = element;
+    if (start == -1){
+      start = 0;
+      end = 0;
+    } else {
+      if (start == 0){
+        if (data[end] == null){
+          start = data.length-1;
+        } else {
+          //resize
+        }
+      } else {
+        start--;
+      }
     }
-    //finish the rest at home
+    data[start] = element;
   }
 
   public void addLast(E element){
     size++;
-    if (end != data.length - 1){
-      end++;
-    } else {
+    if (end == data.length - 1){
       if (data[0] == null){
         end = 0;
       } else {
         //resize
       }
+    } else {
+      if (start == -1){
+        start = 0;
+      }
+      end++;
     }
+    data[end] = element;
   }
 
   public E removeFirst(){
@@ -91,6 +110,15 @@ public class MyDeque<E>{
   public E getLast(){
     return data[end];
   }
+
+  public String toStringActual(){
+    String ans = "{";
+    for (int i = 0; i < data.length; i++){
+      ans+= data[i]+" ";
+    }
+    ans+= "}";
+    return ans;
+  }
 }
 
 /*
@@ -99,5 +127,4 @@ Get: return but NOT remove the element. (peek)
 Remove: return AND remove the element. (pop / de-queue)
 
 Size,Add, remove, and get should be O(1)
-toString O(n) - format:  {a b c d }  / {}  /   {VALUE_VALUE2_VALUE3_}  (space after each value)
 */
