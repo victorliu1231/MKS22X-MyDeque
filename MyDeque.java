@@ -138,6 +138,7 @@ public class MyDeque<E>{
     return data[end];
   }
 
+  @SuppressWarnings("unchecked")
   private void resize(){
     E[] newAry = (E[])new Object[data.length * 2 + 1];
     int counter = start;
