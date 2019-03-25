@@ -2,6 +2,14 @@ import java.util.NoSuchElementException;
 
 public class VDriver{
   public static void main(String[]args){
+    System.out.println(Calculator.eval("1 2 3 + +")); //should be 6.0
+    System.out.println(Calculator.eval("10 2.0 +"));// is 12.0
+    System.out.println(Calculator.eval("11 3 - 4 + 2.5 *"));// is 30.0
+    System.out.println(Calculator.eval("8 2 + 99 9 - * 2 + 9 -"));// is 893.0
+    System.out.println(Calculator.eval("1 2 3 4 5 + * - -"));// is 26.0
+
+
+    /*
     MyDeque<Integer> d1 = new MyDeque<>();
     System.out.print(d1+" "); System.out.println(d1.size());//{}, 0
     d1.addLast(1); d1.addLast(2); d1.addLast(3); //{1 2 3 }, 3
@@ -41,7 +49,6 @@ public class VDriver{
     System.out.println(d2.getFirst());
     System.out.println(d2.getLast());
     
-    /*
     int exceptions = 0;
     try {
       System.out.println(d1.removeFirst());
@@ -84,6 +91,4 @@ public class VDriver{
     }
     */
   }
-  //tested all exceptions
-  //getFirst, getLast,
 }

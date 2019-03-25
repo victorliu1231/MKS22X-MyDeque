@@ -11,15 +11,15 @@ public class Calculator{
           double prev = deq.removeLast();
           double prevPrev = deq.removeLast();
           if (elements[i].equals("+")){
-            deq.addLast(prev + prevPrev);
+            deq.addLast(prevPrev + prev);
           } else if (elements[i].equals("-")){
-            deq.addLast(prev - prevPrev);
+            deq.addLast(prevPrev - prev);
           } else if (elements[i].equals("*")){
-            deq.addLast(prev * prevPrev);
+            deq.addLast(prevPrev * prev);
           } else if (elements[i].equals("/")){
-            deq.addLast(prev / prevPrev);
+            deq.addLast(prevPrev / prev);
           } else {
-            deq.addLast(prev % prevPrev);
+            deq.addLast(prevPrev % prev);
           }
         } else {
           deq.addLast(Double.parseDouble(elements[i]));
